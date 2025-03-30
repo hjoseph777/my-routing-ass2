@@ -1,26 +1,221 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Core colors */
+  --primary: #60a5fa; /* lighter blue */
+  --primary-dark: #3b82f6;
+  --secondary: #9ca3af;
+  --background: #111827; /* very dark gray, almost black */
+  --text: #f3f4f6; /* very light gray */
+  --text-light: #d1d5db;
+  --surface: #1f2937; /* dark gray */
+  --border: #374151;
+  --accent: #a78bfa;
+  
+  /* Header/footer colors */
+  --header-bg: #ffffff; /* glossy white */
+  --header-text: #1f2937; /* dark gray text for white backgrounds */
+  --header-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.15);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* Clean typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+/* Card styling */
+.card {
+  background-color: var(--surface);
+  color: var(--text);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  z-index: -1;
+  border-radius: 0.6rem;
+  pointer-events: none;
+}
+
+.card:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--surface);
+  z-index: -1;
+  border-radius: 0.5rem;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.card:hover:before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
+}
+
+/* Card with outlined white border style */
+.card-bordered {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Page header styling */
+.page-header {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  color: var(--header-text);
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--header-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glossy effect */
+.page-header:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.page-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--header-text);
+  position: relative;
+}
+
+.page-header p {
+  opacity: 0.8;
+  margin-bottom: 0;
+  color: var(--header-text);
+  position: relative;
+}
+
+/* Button styling */
+.btn {
+  @apply font-medium py-2 px-4 rounded transition-all duration-200;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* New button style for light backgrounds */
+.btn-dark {
+  background-color: var(--header-text);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-dark:hover {
+  background-color: #111827; /* slightly darker */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Link styling */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Form styling */
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background-color: var(--surface);
+  color: var(--text);
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Light form input variant for white backgrounds */
+.input-light {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.input-light:focus {
+  border-color: var(--primary);
+  background-color: #ffffff;
+}
+
+/* Navigation styles */
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* Tailwind override */
+.border {
+  border: 1px solid var(--border);
 }
