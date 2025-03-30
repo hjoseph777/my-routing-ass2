@@ -20,12 +20,11 @@ export async function generateStaticParams() {
 
 export default async function Post({ params }: Props) {
   const post = posts.find((p) => p.id === parseInt(params.id));
+  const basePath = process.env.NODE_ENV === 'development' ? '' : '/my-routing-ass2';
 
   if (!post) {
     return notFound();
   }
-
-  const basePath = '/my-routing-ass2';
 
   return (
     <div>
@@ -37,7 +36,7 @@ export default async function Post({ params }: Props) {
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <div className="mb-6">
           <Link 
-            href={`${basePath}/`}
+            href="/"
             className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
