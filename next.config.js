@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'export', // Enable static export
+  basePath: process.env.NODE_ENV === 'development' 
+    ? '' 
+    : '/my-routing-ass2', // Only use basePath in production
   images: {
     unoptimized: true,
   },
-  basePath: '/my-routing-ass2',
-  assetPrefix: '/my-routing-ass2/',
-}
+  // Remove trailing slash
+  trailingSlash: false,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

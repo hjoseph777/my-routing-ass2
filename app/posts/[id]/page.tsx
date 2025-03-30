@@ -11,12 +11,21 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+// Add generateStaticParams function
+export async function generateStaticParams() {
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }));
+}
+
 export default async function Post({ params }: Props) {
-  const post = posts.find(p => p.id === parseInt(params.id));
+  const post = posts.find((p) => p.id === parseInt(params.id));
 
   if (!post) {
     return notFound();
   }
+
+  const basePath = '/my-routing-ass2';
 
   return (
     <div>
@@ -28,7 +37,7 @@ export default async function Post({ params }: Props) {
       <div className="bg-white p-6 rounded-lg shadow-sm">
         <div className="mb-6">
           <Link 
-            href="/" 
+            href={`${basePath}/`}
             className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

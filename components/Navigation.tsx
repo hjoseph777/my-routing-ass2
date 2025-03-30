@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const pathname = usePathname();
+  const basePath = process.env.NODE_ENV === 'development' ? '' : '/my-routing-ass2';
 
   return (
     <header className="bg-white sticky top-0 z-10 shadow-md bg-opacity-95 backdrop-blur-sm">
@@ -21,14 +22,9 @@ export default function Navigation() {
           </div>
           
           <nav className="flex space-x-8">
-            {['Home', 'Posts', 'About', 'Contact'].map((item) => {
-              const href = item === 'Home' ? '/' : 
-                          item === 'Posts' ? '/' : 
-                          `/${item.toLowerCase()}`;
-              
-              const isActive = 
-                (pathname === href) || 
-                (item === 'Posts' && pathname.startsWith('/posts/'));
+            {['Home', 'About', 'Contact'].map((item) => {
+              const href = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
+              const isActive = pathname === href;
               
               return (
                 <Link 
